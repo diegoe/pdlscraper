@@ -4,6 +4,7 @@ import unittest
 
 from _test_utils import fake_response_from_file
 from pdl_scraper.spiders.iniciativas_spider import IniciativaSpider
+from pdl_scraper.settings import LEGISLATURE
 
 
 class TestSpiderIniciativa(unittest.TestCase):
@@ -12,7 +13,7 @@ class TestSpiderIniciativa(unittest.TestCase):
 
     def test_get_urls(self):
         result = self.spider.get_my_urls()
-        expected = 'http://www2.congreso.gob.pe/Sicr/TraDocEstProc/CLProLey2011.nsf/Sicr/TraDocEstProc/CLProLey2011.nsf/PAporNumeroInverso/D36F68EDA5474A7605257CAE005690F0?opendocument'
+        expected = 'http://www2.congreso.gob.pe/Sicr/TraDocEstProc/CLProLey' + LEGISLATURE + '.nsf/Sicr/TraDocEstProc/CLProLey' + LEGISLATURE + '.nsf/PAporNumeroInverso/D36F68EDA5474A7605257CAE005690F0?opendocument'
         self.assertEqual(expected[:118], result[0][:118])
 
     def test_parse(self):
