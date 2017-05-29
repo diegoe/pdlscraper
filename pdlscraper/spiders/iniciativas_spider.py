@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import scrapy
-from pdl_scraper.models import db_connect
-from pdl_scraper.items import IniciativaItem
-from pdl_scraper import settings
+from pdlscraper.models import db_connect
+from pdlscraper.items import IniciativaItem
+from pdlscraper import settings
 
 
 class IniciativaSpider(scrapy.Spider):

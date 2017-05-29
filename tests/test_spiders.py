@@ -1,7 +1,7 @@
 #!-*- encoding: utf-8 -*-
 import unittest
 
-from pdl_scraper.spiders.proyecto_spider import ProyectoSpider
+from pdlscraper.spiders.proyecto_spider import ProyectoSpider
 from _test_utils import fake_response_from_file
 
 

@@ -2,8 +2,8 @@
 import unittest
 
 from _test_utils import fake_response_from_file
-from pdl_scraper.spiders.iniciativas_spider import IniciativaSpider
-from pdl_scraper.settings import LEGISLATURE
+from pdlscraper.spiders.iniciativas_spider import IniciativaSpider
+from pdlscraper.settings import LEGISLATURE
 
 
 class TestSpiderIniciativa(unittest.TestCase):

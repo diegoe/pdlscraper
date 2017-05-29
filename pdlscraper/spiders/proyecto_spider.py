@@ -6,7 +6,7 @@ import scrapy
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
-from pdl_scraper.items import PdlScraperItem
+from pdlscraper.items import PdlScraperItem
 
 
 class ProyectoSpider(CrawlSpider):

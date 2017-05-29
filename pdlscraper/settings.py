@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for pdl_scraper project
+# Scrapy settings for pdlscraper project
 #
 # For simplicity, this file contains only the most important settings by
 # default. All the other settings are documented here:
@@ -13,7 +13,7 @@ from unipath import Path
 import sys
 
 
-BASE_DIR = Path(__file__).absolute().ancestor(3)
+BASE_DIR = Path(__file__).absolute().ancestor(2)
 SECRETS_FILE = os.path.join(BASE_DIR, 'config.json')
 
 with open(SECRETS_FILE) as f:
@@ -44,23 +44,23 @@ DATABASE = {
 
 LEGISLATURE = get_secret("legislature")
 
-BOT_NAME = 'pdl_scraper'
+BOT_NAME = 'pdlscraper'
 
-SPIDER_MODULES = ['pdl_scraper.spiders']
-NEWSPIDER_MODULE = 'pdl_scraper.spiders'
+SPIDER_MODULES = ['pdlscraper.spiders']
+NEWSPIDER_MODULE = 'pdlscraper.spiders'
 
 ITEM_PIPELINES = {
-    'pdl_scraper.pipelines.PdlScraperPipeline': 300,
-    'pdl_scraper.pipelines.SeguimientosPipeline': 400,
-    'pdl_scraper.pipelines.IniciativasPipeline': 500,
-    'pdl_scraper.pipelines.PdlPdfurlPipeline': 600,
-    'pdl_scraper.pipelines.UpdaterPipeline': 700,
-    'pdl_scraper.pipelines.ExpedientePipeline': 800,
+    'pdlscraper.pipelines.PdlScraperPipeline': 300,
+    'pdlscraper.pipelines.SeguimientosPipeline': 400,
+    'pdlscraper.pipelines.IniciativasPipeline': 500,
+    'pdlscraper.pipelines.PdlPdfurlPipeline': 600,
+    'pdlscraper.pipelines.UpdaterPipeline': 700,
+    'pdlscraper.pipelines.ExpedientePipeline': 800,
 }
 
 # Crawl responsibly by identifying yourself and your website on the
 # user-agent:
-# USER_AGENT = 'pdl_scraper (+http://www.yourdomain.com)'
+# USER_AGENT = 'pdlscraper (+http://www.yourdomain.com)'
 CONCURRENT_REQUESTS = 10
 CONCURRENT_REQUESTS_PER_DOMAIN = 10
 DOWNLOAD_DELAY = 2

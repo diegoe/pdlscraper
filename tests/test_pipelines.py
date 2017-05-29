@@ -2,14 +2,14 @@
 import datetime
 import unittest
 
-from pdl_scraper.pipelines import PdlScraperPipeline
-from pdl_scraper.pipelines import ExpedientePipeline
-from pdl_scraper.pipelines import SeguimientosPipeline
-from pdl_scraper.pipelines import IniciativasPipeline
-from pdl_scraper.spiders.proyecto_spider import ProyectoSpider
-from pdl_scraper.spiders.seguimientos_spider import SeguimientoSpider
-from pdl_scraper.spiders.iniciativas_spider import IniciativaSpider
-from pdl_scraper.models import db_connect
+from pdlscraper.pipelines import PdlScraperPipeline
+from pdlscraper.pipelines import ExpedientePipeline
+from pdlscraper.pipelines import SeguimientosPipeline
+from pdlscraper.pipelines import IniciativasPipeline
+from pdlscraper.spiders.proyecto_spider import ProyectoSpider
+from pdlscraper.spiders.seguimientos_spider import SeguimientoSpider
+from pdlscraper.spiders.iniciativas_spider import IniciativaSpider
+from pdlscraper.models import db_connect
 
 
 ITEM = dict(fecha_presentacion=datetime.date(2013, 10, 10),

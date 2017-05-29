@@ -1,6 +1,6 @@
 import unittest
 
-from pdl_scraper.spiders.pdfurl_spider import PdfUrlSpider
+from pdlscraper.spiders.pdfurl_spider import PdfUrlSpider
 from _test_utils import fake_response_from_file
 
 
