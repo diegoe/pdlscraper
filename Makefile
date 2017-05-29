@@ -1,7 +1,15 @@
-coverage:
-	rm -rf pdl_scraper/cover
-	rm -rf .coverage
-	nosetests -w pdl_scraper --cover-package=pdl_scraper --cover-html --with-coverage --cover-inclusive --cover-erase
+# Placeholder for testing.
+# Currently unused.
+#
+# coverage:
+#	rm -rf pdlscraper/cover
+#	rm -rf .coverage
+#	nosetests -w pdlscraper \
+#		--cover-package=pdlscraper \
+#		--cover-html \
+#		--with-coverage \
+#		--cover-inclusive \
+#		--cover-erase
 
 lint:
-	flake8 pdl_scraper
+	flake8 pdlscraper
