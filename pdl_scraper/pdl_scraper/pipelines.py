@@ -139,6 +139,7 @@ class PdlScraperPipeline(object):
                 slug = slug.encode("utf-8")
             return slug + "/"
 
+
 class SeguimientosPipeline(object):
     def process_item(self, item, spider):
         if spider.name == 'seguimientos':
@@ -191,12 +192,9 @@ class SeguimientosPipeline(object):
                          'proyecto_id': proyecto_id,
                          }
                 log.msg("Trying to save evento %s, proyecto_id %s fecha %s" %
-                        (
-                         new_i['evento'],
+                        (new_i['evento'],
                          new_i['proyecto_id'],
-                         datetime.strftime(new_i['fecha'], '%Y-%m-%d'),
-                         )
-                )
+                         datetime.strftime(new_i['fecha'], '%Y-%m-%d')))
 
                 res2 = table.find_one(
                     fecha=datetime.strftime(new_i['fecha'], '%Y-%m-%d'),

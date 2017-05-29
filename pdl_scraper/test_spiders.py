@@ -1,11 +1,7 @@
 #!-*- encoding: utf-8 -*-
-import os
 import unittest
 
-from scrapy.http import TextResponse, Request
-
 from pdl_scraper.spiders.proyecto_spider import ProyectoSpider
-
 from _test_utils import fake_response_from_file
 
 
@@ -31,6 +27,6 @@ class TestProyectoSpider(unittest.TestCase):
                          u'Grupo Parlamentario Fuerza Popular')
         self.assertEqual(item['iniciativas_agrupadas'][0:5], u'00154')
         self.assertEqual(item['nombre_comision'],
-                        u'Comisión de Educación  Juventud y Deporte')
+                         u'Comisión de Educación  Juventud y Deporte')
         self.assertEqual(item['titulo_de_ley'], u'LEY UNIVERSITARIA')
         self.assertEqual(item['numero_de_ley'], u'Ley Nº: 30220')

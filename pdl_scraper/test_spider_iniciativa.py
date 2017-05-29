@@ -1,5 +1,4 @@
 #!-*- encoding: utf-8 -*-
-import os
 import unittest
 
 from _test_utils import fake_response_from_file
@@ -13,7 +12,12 @@ class TestSpiderIniciativa(unittest.TestCase):
 
     def test_get_urls(self):
         result = self.spider.get_my_urls()
-        expected = 'http://www2.congreso.gob.pe/Sicr/TraDocEstProc/CLProLey' + LEGISLATURE + '.nsf/Sicr/TraDocEstProc/CLProLey' + LEGISLATURE + '.nsf/PAporNumeroInverso/D36F68EDA5474A7605257CAE005690F0?opendocument'
+        expected = ('http://www2.congreso.gob.pe/Sicr/TraDocEstProc/'
+                    'CLProLey{legislature}.nsf/Sicr/TraDocEstProc/'
+                    'CLProLey{legislature}.nsf/PAporNumeroInverso/'
+                    'D36F68EDA5474A7605257CAE005690F0'
+                    '?opendocument').format(legislature=LEGISLATURE)
+
         self.assertEqual(expected[:118], result[0][:118])
 
     def test_parse(self):
@@ -23,5 +27,3 @@ class TestSpiderIniciativa(unittest.TestCase):
         result = self.spider.parse(response)
         expected = u'00154'
         self.assertEqual(expected, result.next()['iniciativas_agrupadas'][0:5])
-
-

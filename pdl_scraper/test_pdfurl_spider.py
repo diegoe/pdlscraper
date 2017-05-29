@@ -1,14 +1,10 @@
-import os
 import unittest
 
-from scrapy.http import TextResponse, Request
-
 from pdl_scraper.spiders.pdfurl_spider import PdfUrlSpider
-
 from _test_utils import fake_response_from_file
 
-class TestPdfUrlSpider(unittest.TestCase):
 
+class TestPdfUrlSpider(unittest.TestCase):
     def setUp(self):
         self.spider = PdfUrlSpider()
 

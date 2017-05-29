@@ -58,9 +58,9 @@ ITEM_PIPELINES = {
     'pdl_scraper.pipelines.ExpedientePipeline': 800,
 }
 
-# Crawl responsibly by identifying yourself (and your website) on the user-agent
+# Crawl responsibly by identifying yourself and your website on the
+# user-agent:
 # USER_AGENT = 'pdl_scraper (+http://www.yourdomain.com)'
-# be nice
 CONCURRENT_REQUESTS = 10
 CONCURRENT_REQUESTS_PER_DOMAIN = 10
 DOWNLOAD_DELAY = 2
