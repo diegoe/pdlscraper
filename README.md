@@ -3,8 +3,8 @@ pdlscraper: A web scraper for proyectosdeley.pe
 
 pdlscraper analiza la información publicada por el Congreso de la República y la indexa para poder mostrarla en http://proyectosdeley.pe.
 
-proyectosdeley.pe es un proyecto de @hiperderecho y la asociación Contribuyentes por Respeto.
-El código de la aplicación web y este scraper ha sido desarrollado por @carlosp420.
+proyectosdeley.pe es un proyecto de la ONG Hiperderecho y la asociación Contribuyentes por Respeto.
+El código de la aplicación web y este scraper han sido desarrollados por [Carlos Peña](https://github.com/carlosp420).
 
 ## Tareas recurrentes
 
