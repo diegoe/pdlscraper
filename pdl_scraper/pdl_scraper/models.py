@@ -9,15 +9,12 @@ def db_connect():
     Returns sqlalchemy engine instance
     :param test: if test is True then create an empty test database
     """
-    database_name = settings.DATABASE['database']
-
     database = [
         settings.DATABASE['drivername'],
         '//' + settings.DATABASE['username'],
         settings.DATABASE['password'] + '@' + settings.DATABASE['host'],
-        settings.DATABASE['port'] + '/' + database_name,
+        settings.DATABASE['port'] + '/' + settings.DATABASE['database'],
     ]
-    url = ':'.join(database)
+    db = dataset.connect(':'.join(database))
 
-    db = dataset.connect(url)
     return db
