@@ -3,13 +3,13 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
-from datetime import datetime
-import pytz
+import logging
 import re
+from datetime import datetime
+
+import pytz
 import six
 import unicodedata
-
-from scrapy import log
 
 from models import db_connect
 
@@ -44,13 +44,13 @@ class PdlScraperPipeline(object):
             legislatura=item['legislatura'],
         )
         if is_in_db is None:
-            log.msg(">> %s is not in db" % item['codigo'])
+            logging.info(">> %s is not in db" % item['codigo'])
             # get last used id in our database
             table.insert(item)
-            log.msg("Saving project: %s" % item['codigo'])
+            logging.info("Saving project: %s" % item['codigo'])
         else:
-            log.msg("%s is found in db" % item['codigo'])
-            log.msg("not saving")
+            logging.info("%s is found in db" % item['codigo'])
+            logging.info("not saving")
 
     def fix_date(self, string):
         """
@@ -62,7 +62,7 @@ class PdlScraperPipeline(object):
             mydate = datetime.date(datetime.strptime(string, '%d/%m/%Y'))
         except ValueError:
             # mydate = datetime.date(datetime.strptime(string, '%m/%d/%Y'))
-            log.msg("fecha_presentacion was not in the right format.")
+            logging.info("fecha_presentacion was not in the right format.")
             string = "1970-01-01"
             mydate = datetime.date(datetime.strptime(string, '%Y-%m-%d'))
         return mydate
@@ -144,8 +144,8 @@ class SeguimientosPipeline(object):
     def process_item(self, item, spider):
         if spider.name == 'seguimientos':
             item['seguimientos'] = self.fix_seguimientos_list(item['seguimientos'])
-            log.msg(item['codigo'])
-            log.msg(item['seguimientos'])
+            logging.info(item['codigo'])
+            logging.info(item['seguimientos'])
             self.save_seguimientos(item)
             return item
         return item
@@ -172,14 +172,14 @@ class SeguimientosPipeline(object):
         Try to save a list of tuples to Seguimientos model if they don't
         exist already.
         """
-        log.msg("Try to save seguimientos.")
+        logging.info("Try to save seguimientos.")
         db = db_connect()
 
         # get proyect id for these seguimientos
         table = db['pdl_proyecto']
         res = table.find_one(codigo=item['codigo'])
         if res is None:
-            log.msg("There is no project with that code: %s" % item['codigo'])
+            logging.info("There is no project with that code: %s" % item['codigo'])
         else:
             # save
             table = db['pdl_seguimientos']
@@ -191,7 +191,7 @@ class SeguimientosPipeline(object):
                          'evento': i[1],
                          'proyecto_id': proyecto_id,
                          }
-                log.msg("Trying to save evento %s, proyecto_id %s fecha %s" %
+                logging.info("Trying to save evento %s, proyecto_id %s fecha %s" %
                         (new_i['evento'],
                          new_i['proyecto_id'],
                          datetime.strftime(new_i['fecha'], '%Y-%m-%d')))
@@ -203,10 +203,10 @@ class SeguimientosPipeline(object):
                 )
                 if res2 is None:
                     # not in database
-                    log.msg("This event is not in the database.")
+                    logging.info("This event is not in the database.")
                     append(new_i)
                 else:
-                    log.msg("This event is already in the database.")
+                    logging.info("This event is already in the database.")
             table.insert_many(seguimientos_to_save)
 
 
@@ -215,7 +215,7 @@ class IniciativasPipeline(object):
         if spider.name == 'iniciativa':
             item['iniciativas_agrupadas'] = self.parse_iniciativas(item['iniciativas_agrupadas'])
             item['time_edited'] = datetime.utcnow().replace(tzinfo=pytz.utc)
-            log.msg(item['codigo'])
+            logging.info(item['codigo'])
             self.save_iniciativas(item)
             return item
         return item
@@ -240,7 +240,7 @@ class IniciativasPipeline(object):
         Try to save a list of tuples to Seguimientos model if they don't
         exist already.
         """
-        log.msg("Try to save iniciativas.")
+        logging.info("Try to save iniciativas.")
         db = db_connect()
 
         # get proyect id for these seguimientos
@@ -252,7 +252,7 @@ class PdlPdfurlPipeline(object):
     def process_item(self, item, spider):
         if spider.name == 'pdfurl':
             # save pdfurl
-            log.msg("Try saving pdf_url to database: %s." % item['codigo'])
+            logging.info("Try saving pdf_url to database: %s." % item['codigo'])
             db = db_connect()
             table = db['pdl_proyecto']
             table.update(item, ['codigo'])
@@ -263,7 +263,7 @@ class PdlPdfurlPipeline(object):
 class UpdaterPipeline(object):
     def process_item(self, item, spider):
         if spider.name == 'updater':
-            log.msg("Try saving item to database: %s." % item['codigo'])
+            logging.info("Try saving item to database: %s." % item['codigo'])
             db = db_connect()
             table = db['pdl_proyecto']
             table.update(item, ['codigo'])
@@ -283,7 +283,7 @@ class UpdateFechaPresentacionPipeline(object):
         db = db_connect()
         table = db['pdl_proyecto']
         table.update(item, ['codigo'])
-        log.msg("Saving project: %s" % item['codigo'])
+        logging.info("Saving project: %s" % item['codigo'])
 
     def fix_date(self, string):
         """
@@ -295,7 +295,7 @@ class UpdateFechaPresentacionPipeline(object):
             mydate = datetime.date(datetime.strptime(string, '%d/%m/%Y'))
         except ValueError:
             # mydate = datetime.date(datetime.strptime(string, '%m/%d/%Y'))
-            log.msg("fecha_presentacion was not in the right format.")
+            logging.info("fecha_presentacion was not in the right format.")
             string = "1970-01-01"
             mydate = datetime.date(datetime.strptime(string, '%Y-%m-%d'))
         return mydate
@@ -320,7 +320,7 @@ class ExpedientePipeline(object):
         table = db['pdl_proyecto']
         res = table.find_one(expediente=item['expediente_url'])
         if res is None:
-            log.msg("There is no project with that expediente_url: %s" % item['expediente_url'])
+            logging.info("There is no project with that expediente_url: %s" % item['expediente_url'])
         else:
             return res.get('id')
 
@@ -328,7 +328,7 @@ class ExpedientePipeline(object):
         """
         Try to save if they don't exist already.
         """
-        log.msg("Try to save events in expedientes.")
+        logging.info("Try to save events in expedientes.")
         db = db_connect()
         table = db['pdl_expedientes']
 
@@ -343,10 +343,10 @@ class ExpedientePipeline(object):
             )
             if res is None:
                 # not in database
-                log.msg("This event is not in the database.")
+                logging.info("This event is not in the database.")
                 table.insert(item)
             else:
-                log.msg("This event '%s' is already in the database." % item['evento'])
+                logging.info("This event '%s' is already in the database." % item['evento'])
 
     def fix_date(self, string):
         """

@@ -1,5 +1,4 @@
 import scrapy
-from scrapy import log
 
 from pdl_scraper.items import SeguimientosItem
 from pdl_scraper.models import db_connect
@@ -73,7 +72,7 @@ class SeguimientoSpider(scrapy.Spider):
         for i in res:
             if i['proyecto_id'] not in these_proyecto_ids_are_law and \
                     i['proyecto_id'] not in these_proyecto_ids_are_not_law:
-                log.msg("Appending %s" % str(i['proyecto_id']))
+                self.logger.info("Appending %s" % str(i['proyecto_id']))
                 append(i['proyecto_id'])
 
         # get proyecto codes from proyecto ids and add to URL list

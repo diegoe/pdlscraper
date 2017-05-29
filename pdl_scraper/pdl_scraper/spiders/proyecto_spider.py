@@ -3,8 +3,8 @@ import re
 
 import short_url
 import scrapy
-from scrapy.contrib.spiders import CrawlSpider, Rule
-from scrapy.contrib.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
+from scrapy.linkextractors import LinkExtractor
 
 from pdl_scraper.items import PdlScraperItem
 

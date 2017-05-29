@@ -2,7 +2,6 @@
 import re
 
 import scrapy
-from scrapy import log
 
 from pdl_scraper.items import PdlPdfUrlItem
 from pdl_scraper.models import db_connect
@@ -41,9 +40,9 @@ class PdfUrlSpider(scrapy.Spider):
             for pattern in patterns:
                 pattern = re.compile(pattern, re.IGNORECASE)
                 if re.search(pattern, href):
-                    log.msg("Found pdfurl for code: %s" % str(codigo))
+                    self.logger.info("Found pdfurl for code: %s" % str(codigo))
                     return href
-        log.msg("We failed to parse pdfurl for this project %s:" % str(codigo))
+        self.logger.info("We failed to parse pdfurl for this project %s:" % str(codigo))
         return ''
 
     def get_my_urls(self):
@@ -61,6 +60,6 @@ class PdfUrlSpider(scrapy.Spider):
         for i in res:
             if i['pdf_url'] is None or i['pdf_url'].strip() == '':
                 append(i['expediente'])
-                log.msg('Appending %s to start_urls.' % str(i['expediente']))
+                self.logger.info('Appending %s to start_urls.' % str(i['expediente']))
 
         return start_urls
